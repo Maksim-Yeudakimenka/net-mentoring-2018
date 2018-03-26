@@ -1,0 +1,71 @@
+﻿@model CrawlerOptionsViewModel
+
+@{
+  ViewData["Title"] = "Crawler.Web";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="row">
+  <div class="col-md-4">
+    <section>
+      <h4>Search options.</h4>
+      <hr />
+      <div asp-validation-summary="All" class="text-danger"></div>
+      <div class="form-group">
+        <label asp-for="StartUrl"></label>
+        <input asp-for="StartUrl" class="form-control" />
+        <span asp-validation-for="StartUrl" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="SearchDepth"></label>
+        <input asp-for="SearchDepth" class="form-control" />
+        <span asp-validation-for="SearchDepth" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="SearchTerm"></label>
+        <input asp-for="SearchTerm" class="form-control" />
+        <span asp-validation-for="SearchTerm" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <button id="startButton" class="btn btn-default">Start</button>
+      </div>
+    </section>
+  </div>
+  <div class="col-md-6 col-md-offset-2">
+    <section>
+      <h4>Search results.</h4>
+      <hr />
+      <ul id="searchResults"></ul>
+    </section>
+  </div>
+</div>
+
+@section Scripts {
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+
+  <script type="text/javascript">
+        $("#startButton").click(function() {
+            $("#searchResults").empty();
+
+            var actionUrl = '@Url.Action("Search", "Home")';
+            var model = {
+                StartUrl: $("#StartUrl").val(),
+                SearchDepth: $("#SearchDepth").val(),
+                SearchTerm: $("#SearchTerm").val()
+            };
+
+            $.getJSON(actionUrl, model, displayResults);
+        });
+
+        function displayResults(response) {
+            if (response != null && response.length > 0) {
+                for (var i = 0; i < response.length; i++) {
+                    $("#searchResults").append("<li><a href='" + response[i] + "'>" + response[i] + "</li>");
+                }
+            }
+            else {
+                $("#searchResults").append("No results.");
+            }
+        }
+  </script>
+}
