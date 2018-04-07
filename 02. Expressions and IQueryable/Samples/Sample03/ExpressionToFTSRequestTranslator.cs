@@ -29,6 +29,19 @@ namespace Sample03
 
 				return node;
 			}
+
+    if (node.Method.DeclaringType == typeof(string) &&
+        node.Method.Name == "StartsWith" || node.Method.Name == "EndsWith" || node.Method.Name == "Contains")
+    {
+      var constantExpression = (ConstantExpression) node.Arguments[0];
+      var modifiedExpression = GetExpressionForStringMethod(constantExpression, node.Method.Name);
+      var binaryExpression = Expression.Equal(node.Object, modifiedExpression);
+
+      Visit(binaryExpression);
+
+      return node;
+    }
+
 			return base.VisitMethodCall(node);
 		}
 
@@ -89,5 +102,20 @@ namespace Sample03
 
 			return node;
 		}
+
+    private ConstantExpression GetExpressionForStringMethod(ConstantExpression expression, string methodName)
+    {
+      switch (methodName)
+      {
+        case "StartsWith":
+          return Expression.Constant(expression.Value + "*");
+        case "EndsWith":
+          return Expression.Constant("*" + expression.Value);
+        case "Contains":
+          return Expression.Constant("*" + expression.Value + "*");
+        default:
+          throw new NotSupportedException(string.Format("String method {0} is not supported", methodName));
+      }
+    }
 	}
 }
