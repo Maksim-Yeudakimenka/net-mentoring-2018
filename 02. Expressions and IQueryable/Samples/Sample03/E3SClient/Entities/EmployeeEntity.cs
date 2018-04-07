@@ -120,7 +120,7 @@ namespace Sample03.E3SClient.Entities
 
 	}
 
-	[E3SMetaType("meta:people-suite:people-api:com.epam.e3s.app.people.api.data.EmployeeEntity")]
+	[E3SMetaType("meta:people-suite:people-api:com.epam.e3s.app.people.api.data.pluggable.EmployeeEntity")]
 	public class EmployeeEntity : E3SEntity
 	{
 		[JsonProperty]
@@ -136,10 +136,10 @@ namespace Sample03.E3SClient.Entities
 		Skills skill { get; set; }
 
 		[JsonProperty]
-		List<string> firstname { get; set; }
+		string firstname { get; set; }
 
 		[JsonProperty]
-		List<string> lastname { get; set; }
+		string lastname { get; set; }
 
 		[JsonProperty]
 		List<string> fullname { get; set; }
@@ -156,8 +156,8 @@ namespace Sample03.E3SClient.Entities
 		[JsonProperty]
 		List<string> skype { get; set; }
 
-		[JsonProperty]
-		List<string> social { get; set; }
+		//[JsonProperty]
+		//List<string> social { get; set; }
 
 		[JsonProperty]
 		List<string> attachment { get; set; }
@@ -169,7 +169,7 @@ namespace Sample03.E3SClient.Entities
 		public string superior { get; set; }
 
 		[JsonProperty]
-		public string startworkdate { get; set; }
+		public string shortstartworkdate { get; set; }
 
 		[JsonProperty]
 		public string project { get; set; }
@@ -214,8 +214,8 @@ namespace Sample03.E3SClient.Entities
 		[JsonProperty]
 		List<Recognition> recognition { get; set; }
 
-		[JsonProperty]
-		List<string> badge { get; set; }
+		//[JsonProperty]
+		//List<string> badge { get; set; }
 
 		[JsonProperty]
 		public string dismissal { get; set; }

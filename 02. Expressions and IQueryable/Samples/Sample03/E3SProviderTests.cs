@@ -18,7 +18,7 @@ namespace Sample03
 
 			foreach (var emp in res)
 			{
-				Console.WriteLine("{0} {1}", emp.nativename, emp.startworkdate);
+				Console.WriteLine("{0} {1}", emp.nativename, emp.shortstartworkdate);
 			}
 		}
 
@@ -30,7 +30,7 @@ namespace Sample03
 
 			foreach (var emp in res.OfType<EmployeeEntity>())
 			{
-				Console.WriteLine("{0} {1}", emp.nativename, emp.startworkdate);
+				Console.WriteLine("{0} {1}", emp.nativename, emp.shortstartworkdate);
 			}
 		}
 
@@ -42,7 +42,7 @@ namespace Sample03
 
 			foreach (var emp in employees.Where(e => e.workstation == "EPRUIZHW0249"))
 			{
-				Console.WriteLine("{0} {1}", emp.nativename, emp.startworkdate);
+				Console.WriteLine("{0} {1}", emp.nativename, emp.shortstartworkdate);
 			}
         }
 	}
