@@ -9,14 +9,14 @@ namespace Sample03
 {
 	public class ExpressionToFTSRequestTranslator : ExpressionVisitor
 	{
-		StringBuilder resultString;
+		IList<StringBuilder> resultStrings;
 
-		public string Translate(Expression exp)
+		public IEnumerable<string> Translate(Expression exp)
 		{
-			resultString = new StringBuilder();
+			resultStrings = new List<StringBuilder> { new StringBuilder() };
 			Visit(exp);
 
-			return resultString.ToString();
+			return resultStrings.Select(sb => sb.ToString());
 		}
 
 		protected override Expression VisitMethodCall(MethodCallExpression node)
@@ -77,10 +77,16 @@ namespace Sample03
           }
 
 					Visit(memberExpression);
-					resultString.Append("(");
+					resultStrings.Last().Append("(");
 					Visit(constantExpression);
-					resultString.Append(")");
+					resultStrings.Last().Append(")");
 					break;
+
+        case ExpressionType.AndAlso:
+          Visit(node.Left);
+          resultStrings.Add(new StringBuilder());
+          Visit(node.Right);
+          break;
 
 				default:
 					throw new NotSupportedException(string.Format("Operation {0} is not supported", node.NodeType));
@@ -91,14 +97,14 @@ namespace Sample03
 
 		protected override Expression VisitMember(MemberExpression node)
 		{
-			resultString.Append(node.Member.Name).Append(":");
+			resultStrings.Last().Append(node.Member.Name).Append(":");
 
 			return base.VisitMember(node);
 		}
 
 		protected override Expression VisitConstant(ConstantExpression node)
 		{
-			resultString.Append(node.Value);
+			resultStrings.Last().Append(node.Value);
 
 			return node;
 		}
