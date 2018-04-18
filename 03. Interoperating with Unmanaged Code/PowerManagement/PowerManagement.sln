@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PowerManagement.Library", "PowerManagement.Library\PowerManagement.Library.csproj", "{134D4B37-4B4D-4B5F-93D1-57909AF5DB29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerManagement.Tests", "PowerManagement.Tests\PowerManagement.Tests.csproj", "{EF4115CF-0974-4C01-9F3A-AB5DE3366D9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{134D4B37-4B4D-4B5F-93D1-57909AF5DB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{134D4B37-4B4D-4B5F-93D1-57909AF5DB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{134D4B37-4B4D-4B5F-93D1-57909AF5DB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{134D4B37-4B4D-4B5F-93D1-57909AF5DB29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF4115CF-0974-4C01-9F3A-AB5DE3366D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF4115CF-0974-4C01-9F3A-AB5DE3366D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF4115CF-0974-4C01-9F3A-AB5DE3366D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF4115CF-0974-4C01-9F3A-AB5DE3366D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9750DE28-0BB0-4133-A18F-1804FD8041F8}
+	EndGlobalSection
+EndGlobal
