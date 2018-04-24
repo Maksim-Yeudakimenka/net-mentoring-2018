@@ -1,5 +1,9 @@
-﻿namespace PowerManagement.Library
+﻿using System.Runtime.InteropServices;
+
+namespace PowerManagement.Library
 {
+  [ComVisible(true)]
+  [InterfaceType(ComInterfaceType.InterfaceIsDual)]
   public interface IPowerManager
   {
     ulong GetLastSleepTime();

@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 
 namespace PowerManagement.Library
 {
+  [ComVisible(true)]
+  [ClassInterface(ClassInterfaceType.None)]
   public class PowerManager : IPowerManager
   {
     private const int LastSleepTime = 15;
