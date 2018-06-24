@@ -46,6 +46,7 @@
     <Content Include="Email_Message.sql" />
     <Compile Include="EmailMessage.cs" />
     <Compile Include="EmailMessageRepository.cs" />
+    <Compile Include="IEmailMessageRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

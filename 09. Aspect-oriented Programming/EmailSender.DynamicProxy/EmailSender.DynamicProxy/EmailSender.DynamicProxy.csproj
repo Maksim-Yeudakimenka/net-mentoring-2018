@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}</ProjectGuid>
+    <ProjectGuid>{0399B673-8C25-47CD-AC7C-7C9762D93918}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EmailSender.Smtp</RootNamespace>
-    <AssemblyName>EmailSender.Smtp</AssemblyName>
+    <RootNamespace>EmailSender.DynamicProxy</RootNamespace>
+    <AssemblyName>EmailSender.DynamicProxy</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,29 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmailSendClient.cs" />
-    <Compile Include="EmailSenderService.cs" />
-    <Compile Include="IEmailSendClient.cs" />
+    <Compile Include="LoggingInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmailSender.Core\EmailSender.Core.csproj">
-      <Project>{7356BF16-7401-4B9F-8180-CB81876CD999}</Project>
-      <Name>EmailSender.Core2</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EmailSender.DAL\EmailSender.DAL.csproj">
-      <Project>{DBE34628-3907-4C8A-9DC4-7EC3EBF07EB3}</Project>
-      <Name>EmailSender.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EmailSender.DynamicProxy\EmailSender.DynamicProxy.csproj">
-      <Project>{0399B673-8C25-47CD-AC7C-7C9762D93918}</Project>
-      <Name>EmailSender.DynamicProxy</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

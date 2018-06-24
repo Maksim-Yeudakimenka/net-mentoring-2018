@@ -1,21 +1,34 @@
 ﻿using System;
 using System.Linq;
 using System.Timers;
+using Castle.DynamicProxy;
 using EmailSender.Core;
 using EmailSender.DAL;
+using EmailSender.DynamicProxy;
+using Microsoft.Extensions.Logging;
 
 namespace EmailSender.Smtp
 {
   public class EmailSenderService
   {
-    private readonly EmailMessageRepository _repository;
-    private readonly EmailSendClient _emailClient;
+    private readonly IEmailMessageRepository _repository;
+    private readonly IEmailSendClient _emailClient;
+    private readonly ILogger<EmailSenderService> _logger;
     private readonly Timer _timer;
 
-    public EmailSenderService(AppSettingProvider appSettings, ConnectionStringProvider connectionStrings)
+    public EmailSenderService(AppSettingProvider appSettings, ConnectionStringProvider connectionStrings, ILoggerFactory loggerFactory)
     {
-      _repository = new EmailMessageRepository(connectionStrings);
-      _emailClient = new EmailSendClient(appSettings);
+      _logger = loggerFactory.CreateLogger<EmailSenderService>();
+
+      var proxyGenerator = new ProxyGenerator();
+
+      _repository = proxyGenerator.CreateInterfaceProxyWithTarget<IEmailMessageRepository>(
+        new EmailMessageRepository(connectionStrings),
+        new LoggingInterceptor(_logger));
+
+      _emailClient = proxyGenerator.CreateInterfaceProxyWithTarget<IEmailSendClient>(
+        new EmailSendClient(appSettings),
+        new LoggingInterceptor(loggerFactory.CreateLogger<EmailSendClient>()));
 
       _timer = new Timer(appSettings.RepeatInterval)
       {
@@ -42,19 +55,22 @@ namespace EmailSender.Smtp
       try
       {
         var incompletedMessages = _repository.GetAllIncompleted().ToList();
-        Console.WriteLine("Got {0} incompleted messages.", incompletedMessages.Count);
+        _logger.LogInformation("Got {IncompletedMessageCount} incompleted message(s).", incompletedMessages.Count);
 
         foreach (var message in incompletedMessages)
         {
           _emailClient.SendMessage(message);
           _repository.SetCompleted(message);
-          Console.WriteLine("Sent a message with subject {0} to {1}.", message.Subject, message.Recipient);
+
+          _logger.LogInformation(
+            "Sent a message with subject {MessageSubject} to {MessageRecipient}.",
+            message.Subject,
+            message.Recipient);
         }
       }
       catch (Exception ex)
       {
-        Console.WriteLine("Exception was thrown in the main loop of the EmailSenderService: ");
-        Console.WriteLine(ex.Message);
+        _logger.LogError(ex, "Exception was thrown in the main loop of the EmailSenderService.");
       }
       finally
       {

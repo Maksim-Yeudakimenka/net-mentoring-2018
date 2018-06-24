@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.DAL", "EmailSen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.Smtp", "EmailSender.Smtp\EmailSender.Smtp.csproj", "{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.DynamicProxy", "EmailSender.DynamicProxy\EmailSender.DynamicProxy.csproj", "{0399B673-8C25-47CD-AC7C-7C9762D93918}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0399B673-8C25-47CD-AC7C-7C9762D93918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0399B673-8C25-47CD-AC7C-7C9762D93918}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0399B673-8C25-47CD-AC7C-7C9762D93918}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0399B673-8C25-47CD-AC7C-7C9762D93918}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

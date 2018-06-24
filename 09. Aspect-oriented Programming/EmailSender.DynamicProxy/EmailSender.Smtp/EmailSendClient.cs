@@ -5,7 +5,7 @@ using EmailSender.DAL;
 
 namespace EmailSender.Smtp
 {
-  public class EmailSendClient
+  public class EmailSendClient : IEmailSendClient
   {
     private readonly AppSettingProvider _appSettings;
 

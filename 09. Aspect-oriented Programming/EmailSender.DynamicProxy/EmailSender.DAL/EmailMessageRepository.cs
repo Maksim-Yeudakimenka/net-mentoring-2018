@@ -5,7 +5,7 @@ using EmailSender.Core;
 
 namespace EmailSender.DAL
 {
-  public class EmailMessageRepository
+  public class EmailMessageRepository : IEmailMessageRepository
   {
     private readonly string _connectionString;
 
