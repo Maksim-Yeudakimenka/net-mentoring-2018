@@ -1,65 +1,65 @@
 ﻿using System;
-using System.Linq;
-using System.Timers;
+using EasyNetQ;
+using EasyNetQ.Topology;
+using EmailSender.CommonTypes;
 using EmailSender.Core;
-using EmailSender.DAL;
 
 namespace EmailSender.Smtp
 {
   public class EmailSenderService
   {
-    private readonly EmailMessageRepository _repository;
+    private readonly RabbitMqConfiguration _rabbitMqConfiguration;
     private readonly EmailSendClient _emailClient;
-    private readonly Timer _timer;
+    private readonly IAdvancedBus _advancedRabbitMqBus;
+    private IDisposable _consumer;
 
-    public EmailSenderService(AppSettingProvider appSettings, ConnectionStringProvider connectionStrings)
+    public EmailSenderService(AppSettingProvider appSettings, IBus rabbitMqBus)
     {
-      _repository = new EmailMessageRepository(connectionStrings);
-      _emailClient = new EmailSendClient(appSettings);
-
-      _timer = new Timer(appSettings.RepeatInterval)
-      {
-        AutoReset = true
-      };
-
-      _timer.Elapsed += this.MainLoop;
+      _rabbitMqConfiguration = appSettings.RabbitMqConfiguration;
+      _emailClient = new EmailSendClient(appSettings.SmtpConfiguration);
+      _advancedRabbitMqBus = rabbitMqBus.Advanced;
     }
 
     public void Start()
     {
-      _timer.Start();
+      var exchangeName = _rabbitMqConfiguration.ExchangeName;
+      var queueName = _rabbitMqConfiguration.QueueName;
+      var routingKey = _rabbitMqConfiguration.RoutingKey;
+
+      var exchange = _advancedRabbitMqBus.ExchangeDeclare(exchangeName, ExchangeType.Topic);
+      var queue = _advancedRabbitMqBus.QueueDeclare(queueName);
+
+      _advancedRabbitMqBus.Bind(exchange, queue, routingKey);
+
+      _consumer = _advancedRabbitMqBus.Consume<EmailMessage>(queue, (message, info) =>
+      {
+        Console.WriteLine(
+          "Received EmailMessage. Id: {0}, Subject: {1}, Body: {2}, Recipient: {3}.",
+          message.Body.Id,
+          message.Body.Subject,
+          message.Body.Body,
+          message.Body.Recipient);
+
+        try
+        {
+          Console.WriteLine("Sending e-mail message...");
+          _emailClient.SendMessage(message.Body);
+        }
+        catch (Exception e)
+        {
+          Console.WriteLine("Failed to send e-mail message: " + e.Message);
+          throw;
+        }
+
+        Console.WriteLine("Message has been sent successfully.");
+      });
+
+      Console.WriteLine("Waiting for message...");
     }
 
     public void Stop()
     {
-      _timer.Stop();
-    }
-
-    private void MainLoop(object sender, ElapsedEventArgs e)
-    {
-      _timer.Stop();
-
-      try
-      {
-        var incompletedMessages = _repository.GetAllIncompleted().ToList();
-        Console.WriteLine("Got {0} incompleted messages.", incompletedMessages.Count);
-
-        foreach (var message in incompletedMessages)
-        {
-          _emailClient.SendMessage(message);
-          _repository.SetCompleted(message);
-          Console.WriteLine("Sent a message with subject {0} to {1}.", message.Subject, message.Recipient);
-        }
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine("Exception was thrown in the main loop of the EmailSenderService: ");
-        Console.WriteLine(ex.Message);
-      }
-      finally
-      {
-        _timer.Start();
-      }
+      _consumer.Dispose();
     }
   }
 }

@@ -1,28 +1,28 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using EmailSender.CommonTypes;
 using EmailSender.Core;
-using EmailSender.DAL;
 
 namespace EmailSender.Smtp
 {
   public class EmailSendClient
   {
-    private readonly AppSettingProvider _appSettings;
+    private readonly SmtpConfiguration _configuration;
 
-    public EmailSendClient(AppSettingProvider appSettings)
+    public EmailSendClient(SmtpConfiguration configuration)
     {
-      _appSettings = appSettings;
+      _configuration = configuration;
     }
 
     public void SendMessage(EmailMessage message)
     {
-      using (var mail = new MailMessage(_appSettings.SmtpUsername, message.Recipient, message.Subject, message.Body))
+      using (var mail = new MailMessage(_configuration.SmtpUsername, message.Recipient, message.Subject, message.Body))
       {
-        using (var smtpClient = new SmtpClient(_appSettings.SmtpHost, _appSettings.SmtpPort))
+        using (var smtpClient = new SmtpClient(_configuration.SmtpHost, _configuration.SmtpPort))
         {
           smtpClient.EnableSsl = true;
           smtpClient.UseDefaultCredentials = false;
-          smtpClient.Credentials = new NetworkCredential(_appSettings.SmtpUsername, _appSettings.SmtpPassword);
+          smtpClient.Credentials = new NetworkCredential(_configuration.SmtpUsername, _configuration.SmtpPassword);
           smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
 
           smtpClient.Send(mail);

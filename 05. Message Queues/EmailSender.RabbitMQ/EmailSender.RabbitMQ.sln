@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.Core", "EmailSender.Core\EmailSender.Core.csproj", "{7356BF16-7401-4B9F-8180-CB81876CD999}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.WinSvc", "EmailSender.WinSvc\EmailSender.WinSvc.csproj", "{88CAC9F0-5993-4C3E-8778-FE4801E73036}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.DAL", "EmailSender.DAL\EmailSender.DAL.csproj", "{DBE34628-3907-4C8A-9DC4-7EC3EBF07EB3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.Smtp", "EmailSender.Smtp\EmailSender.Smtp.csproj", "{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender.CommonTypes", "EmailSender.CommonTypes\EmailSender.CommonTypes.csproj", "{85280FFD-D941-43F2-B071-0D1956291FE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{88CAC9F0-5993-4C3E-8778-FE4801E73036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88CAC9F0-5993-4C3E-8778-FE4801E73036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88CAC9F0-5993-4C3E-8778-FE4801E73036}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBE34628-3907-4C8A-9DC4-7EC3EBF07EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBE34628-3907-4C8A-9DC4-7EC3EBF07EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBE34628-3907-4C8A-9DC4-7EC3EBF07EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBE34628-3907-4C8A-9DC4-7EC3EBF07EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE6A9FF2-A927-41A5-A3C0-4BD6B2A1F32B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85280FFD-D941-43F2-B071-0D1956291FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85280FFD-D941-43F2-B071-0D1956291FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85280FFD-D941-43F2-B071-0D1956291FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85280FFD-D941-43F2-B071-0D1956291FE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

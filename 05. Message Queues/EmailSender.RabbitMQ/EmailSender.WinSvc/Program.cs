@@ -9,13 +9,13 @@ namespace EmailSender.WinSvc
     static void Main(string[] args)
     {
       var appSettings = new AppSettingProvider();
-      var connectionStrings = new ConnectionStringProvider();
+      var rabbitMqBus = ApplicationBootstrapper.ConfigureRabbitMqBus(appSettings.RabbitMqConfiguration);
 
       HostFactory.Run(serviceConfig =>
       {
         serviceConfig.Service<EmailSenderService>(x =>
         {
-          x.ConstructUsing(() => new EmailSenderService(appSettings, connectionStrings));
+          x.ConstructUsing(() => new EmailSenderService(appSettings, rabbitMqBus));
           x.WhenStarted(svc => svc.Start());
           x.WhenStopped(svc => svc.Stop());
         });
